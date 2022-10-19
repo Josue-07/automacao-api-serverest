@@ -35,7 +35,7 @@ public class BaseTest implements Costantes {
         requestSpecification = reqSpecification;
         responseSpecification = respSpecification;
 
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        //RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
 
 

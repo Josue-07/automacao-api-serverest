@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import tests.Login;
+import tests.UsuariosServeRest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,8 @@ import static io.restassured.RestAssured.*;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    Login.class
+        Login.class,
+        UsuariosServeRest.class
 })
 public class Runner extends BaseTest {
 
