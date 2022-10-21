@@ -2,6 +2,7 @@ package tests;
 
 import core.BaseTest;
 
+import io.restassured.module.jsv.JsonSchemaValidator;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;

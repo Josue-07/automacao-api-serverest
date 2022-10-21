@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Root Schema",
+  "required": [
+    "quantidade",
+    "usuarios"
+  ],
+  "properties": {
+    "quantidade": {
+      "type": "integer",
+      "default": 0,
+      "title": "The quantidade Schema",
+      "examples": [
+        3
+      ]
+    },
+    "usuarios": {
+      "type": "array",
+      "default": [],
+      "title": "The usuarios Schema",
+      "items": {
+        "type": "object",
+        "title": "A Schema",
+        "required": [
+          "nome",
+          "email",
+          "password",
+          "administrador",
+          "_id"
+        ],
+        "properties": {
+          "nome": {
+            "type": "string",
+            "title": "The nome Schema",
+            "examples": [
+              "Fulano da Silva",
+              "john doe1",
+              "José"
+            ]
+          },
+          "email": {
+            "type": "string",
+            "title": "The email Schema",
+            "examples": [
+              "fulano@qa.com",
+              "dumb.jof@qa.com.br",
+              "jose@qa.com.br"
+            ]
+          },
+          "password": {
+            "type": "string",
+            "title": "The password Schema",
+            "examples": [
+              "teste",
+              "test"
+            ]
+          },
+          "administrador": {
+            "type": "string",
+            "title": "The administrador Schema",
+            "examples": [
+              "true"
+            ]
+          },
+          "_id": {
+            "type": "string",
+            "title": "The _id Schema",
+            "examples": [
+              "0uxuPY0cbmQhpEz1",
+              "629meLEZ4ajlf2mv",
+              "VJ9J8uOXP0Qna9pI"
+            ]
+          }
+        },
+        "examples": [{
+          "nome": "Fulano da Silva",
+          "email": "fulano@qa.com",
+          "password": "teste",
+          "administrador": "true",
+          "_id": "0uxuPY0cbmQhpEz1"
+        },
+          {
+            "nome": "john doe1",
+            "email": "dumb.jof@qa.com.br",
+            "password": "test",
+            "administrador": "true",
+            "_id": "629meLEZ4ajlf2mv"
+          },
+          {
+            "nome": "José",
+            "email": "jose@qa.com.br",
+            "password": "teste",
+            "administrador": "true",
+            "_id": "VJ9J8uOXP0Qna9pI"
+          }]
+      },
+      "examples": [
+        [{
+          "nome": "Fulano da Silva",
+          "email": "fulano@qa.com",
+          "password": "teste",
+          "administrador": "true",
+          "_id": "0uxuPY0cbmQhpEz1"
+        },
+          {
+            "nome": "john doe1",
+            "email": "dumb.jof@qa.com.br",
+            "password": "test",
+            "administrador": "true",
+            "_id": "629meLEZ4ajlf2mv"
+          },
+          {
+            "nome": "José",
+            "email": "jose@qa.com.br",
+            "password": "teste",
+            "administrador": "true",
+            "_id": "VJ9J8uOXP0Qna9pI"
+          }]
+      ]
+    }
+  },
+  "examples": [{
+    "quantidade": 3,
+    "usuarios": [{
+      "nome": "Fulano da Silva",
+      "email": "fulano@qa.com",
+      "password": "teste",
+      "administrador": "true",
+      "_id": "0uxuPY0cbmQhpEz1"
+    },
+      {
+        "nome": "john doe1",
+        "email": "dumb.jof@qa.com.br",
+        "password": "test",
+        "administrador": "true",
+        "_id": "629meLEZ4ajlf2mv"
+      },
+      {
+        "nome": "José",
+        "email": "jose@qa.com.br",
+        "password": "teste",
+        "administrador": "true",
+        "_id": "VJ9J8uOXP0Qna9pI"
+      }]
+  }]
+}

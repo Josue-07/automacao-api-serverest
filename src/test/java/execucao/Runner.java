@@ -1,10 +1,12 @@
 package execucao;
 
 import core.BaseTest;
+import io.restassured.specification.RequestSpecification;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import tests.Login;
+import tests.ProdutoServeRest;
 import tests.UsuariosServeRest;
 
 import java.util.HashMap;
@@ -15,7 +17,8 @@ import static io.restassured.RestAssured.*;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         Login.class,
-        UsuariosServeRest.class
+        UsuariosServeRest.class,
+        ProdutoServeRest.class
 })
 public class Runner extends BaseTest {
 
@@ -34,7 +37,7 @@ public class Runner extends BaseTest {
                     .statusCode(200)
                     .extract().path("authorization");
 
-           requestSpecification.header("Authorization","Bearer " + token);
+            requestSpecification.header("Authorization", token);
 
 
     }

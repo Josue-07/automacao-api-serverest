@@ -1,6 +1,7 @@
 package core;
 
 
+import execucao.Runner;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -35,7 +36,8 @@ public class BaseTest implements Costantes {
         requestSpecification = reqSpecification;
         responseSpecification = respSpecification;
 
-        //RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
 
 
