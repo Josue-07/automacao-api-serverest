@@ -1,6 +1,7 @@
 package execucao;
 
 import core.BaseTest;
+import core.BearerToken;
 import io.restassured.specification.RequestSpecification;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -16,28 +17,14 @@ import static io.restassured.RestAssured.*;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        Login.class,
-        UsuariosServeRest.class,
-        ProdutoServeRest.class
+       ProdutoServeRest.class
 })
 public class Runner extends BaseTest {
-
+      public static final String token = BearerToken.extrairToken();
     @BeforeClass
     public static void extrairTokenJWTApartirDoLogin(){
-        Map<String, String> login = new HashMap<>();
-        login.put("email","fulano@qa.com");
-        login.put("password","teste");
 
-            String token = given()
-                .body(login)
-                .pathParams("entidade","login")
-            .when()
-                    .post("/{entidade}")
-                .then()
-                    .statusCode(200)
-                    .extract().path("authorization");
-
-            requestSpecification.header("Authorization", token);
+        //requestSpecification.header("Authorization", token);
 
 
     }

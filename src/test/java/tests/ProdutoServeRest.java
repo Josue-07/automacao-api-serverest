@@ -7,7 +7,9 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import utils.GeradorNomes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -15,17 +17,19 @@ import static io.restassured.RestAssured.given;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProdutoServeRest extends BaseTest {
-
     @Test
     public void CT01_validarListaDeProdutos(){
-        given()
+        String nome = given()
 
                 .when()
                     .get("/produtos")
                 .then()
                     .log().all()
-                    .statusCode(HttpStatus.SC_OK);
+                    .statusCode(HttpStatus.SC_OK)
+                .extract().path("produtos.nome").toString();
+
     }
+
 
     @Test
     public void CT02_validarCadastroDeProdutos(){
@@ -36,12 +40,17 @@ public class ProdutoServeRest extends BaseTest {
         params.put("descricao","celular");
         params.put("quantidade",5);
 
-        given()
+         given()
                 .body(params)
                 .when()
                 .post("/produtos")
                 .then()
+                .log().all()
                 .statusCode(HttpStatus.SC_CREATED);
+
+
+
+
     }
 
 }

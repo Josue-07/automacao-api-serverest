@@ -35,13 +35,9 @@ public class BaseTest implements Costantes {
 
         requestSpecification = reqSpecification;
         responseSpecification = respSpecification;
+        requestSpecification.header("Authorization", BearerToken.extrairToken());
 
-
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-
-
-
-
+        //RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
 
     }
