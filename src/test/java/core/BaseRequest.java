@@ -1,10 +1,9 @@
 package core;
 
 
-import execucao.Runner;
-import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.junit.BeforeClass;
@@ -12,7 +11,7 @@ import org.junit.BeforeClass;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class BaseTest implements Costantes {
+public class BaseRequest implements Costantes {
 
     public static RequestSpecification reqSpecification;
     public static ResponseSpecification respSpecification;
@@ -31,11 +30,12 @@ public class BaseTest implements Costantes {
 
         ResponseSpecBuilder responseSpecBuilder = new ResponseSpecBuilder();
         responseSpecBuilder.expectResponseTime(lessThanOrEqualTo(TIMEOUT));
+        responseSpecBuilder.log(LogDetail.ALL);
         respSpecification = responseSpecBuilder.build();
 
         requestSpecification = reqSpecification;
         responseSpecification = respSpecification;
-        requestSpecification.header("Authorization", BearerToken.extrairToken());
+        //requestSpecification.header("Authorization", BearerToken.extrairToken());
 
         //RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 

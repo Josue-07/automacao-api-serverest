@@ -1,6 +1,6 @@
 package tests;
 
-import core.BaseTest;
+import core.BaseRequest;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -8,7 +8,7 @@ import org.apache.http.HttpStatus;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import utils.GeradorNomes;
+import utils.GeradorDeHash;
 
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class UsuariosServeRest extends BaseTest {
+public class UsuariosServeRest extends BaseRequest {
 
     @Test
     public void CT01_verificarListagemDeUsuarios() {
@@ -61,7 +61,6 @@ public class UsuariosServeRest extends BaseTest {
                 .when()
                 .get("/{entidade}")
                 .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_OK)
                 .body("$", hasKey("quantidade"))
                 .body("$", hasKey("usuarios"))
@@ -82,8 +81,8 @@ public class UsuariosServeRest extends BaseTest {
     public void CT03_validarCadastroDeUsuario() {
 
         Map<String, String> cadastro = new HashMap<>();
-        cadastro.put("nome", GeradorNomes.getGerarStringAleatoria(8));
-        cadastro.put("email", GeradorNomes.getGerarStringAleatoria(8) + "@teste.com.br");
+        cadastro.put("nome", GeradorDeHash.getGerarStringAleatoria(8));
+        cadastro.put("email", GeradorDeHash.getGerarStringAleatoria(8) + "@teste.com.br");
         cadastro.put("password", "123456");
         cadastro.put("administrador", "true");
 
@@ -93,7 +92,6 @@ public class UsuariosServeRest extends BaseTest {
                 .when()
                 .post("/{entidade}")
                 .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_CREATED)
                 .body("message", is("Cadastro realizado com sucesso"))
                 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("usuarioCadastradoSchema.json"))
@@ -111,7 +109,7 @@ public class UsuariosServeRest extends BaseTest {
     @Test
     public void CT04_validarEmailJaExistente() {
         Map<String, String> cadastro = new HashMap<>();
-        cadastro.put("nome", GeradorNomes.getGerarStringAleatoria(8));
+        cadastro.put("nome", GeradorDeHash.getGerarStringAleatoria(8));
         cadastro.put("email", "fulano@qa.com");
         cadastro.put("password", "123456");
         cadastro.put("administrador", "true");
@@ -122,20 +120,19 @@ public class UsuariosServeRest extends BaseTest {
                 .when()
                 .post("/{entidade}")
                 .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("message", is("Este email já está sendo usado"));
 
     }
+
     @Test
     public void CT05_validarBuscaDeUsuarioPorId() {
 
         Response response = given()
-                .queryParams("_id","0uxuPY0cbmQhpEz1")
+                .queryParams("_id", "0uxuPY0cbmQhpEz1")
                 .when()
                 .get("/usuarios")
                 .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_OK).extract().response();
 
         JsonPath jsonPath = response.jsonPath();
@@ -146,26 +143,42 @@ public class UsuariosServeRest extends BaseTest {
         assertTrue(jsonString.contains("0uxuPY0cbmQhpEz1"));
 
     }
+
     @Test
-    public void CT06_validarBuscaDeUsuarioPorIdNãoEncontrado() {
+    public void CT06_validarBuscaDeUsuarioPorIdNaoEncontrado() {
 
         Response response = given()
-                .pathParams("entidade","usuarios")
-                .pathParams("_id","fdgfdgfg")
+                .pathParams("entidade", "usuarios")
+                .pathParams("_id", "fdgfdgfg")
                 .when()
                 .get("{entidade}/{_id}")
                 .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body("$",hasKey("message")).extract().response();
+                .body("$", hasKey("message")).extract().response();
 
         JsonPath jsonPath = new JsonPath(response.body().asString());
-
         assertNotNull(jsonPath);
         assertTrue(jsonPath.getString("message").contains("Usuário não encontrado"));
-        assertEquals("Usuário não encontrado",jsonPath.getString("message"));
+        assertEquals("Usuário não encontrado", jsonPath.getString("message"));
 
     }
+//    @Test
+//    public void CT07_devoExcluirUsuario() {
+//
+//        Response response = given()
+//                .pathParams("entidade", "usuarios")
+//                .pathParams("_id", "0uxuPY0cbmQhpEz1")
+//                .when()
+//                .delete("{entidade}/{_id}")
+//                .then()
+//                .statusCode(HttpStatus.SC_OK)
+//                .body("$", hasKey("message")).extract().response();
+//
+//        JsonPath jsonPath = new JsonPath(response.body().asString());
+//        assertNotNull(jsonPath);
+//        assertEquals("Registro excluído com sucesso", jsonPath.getString("message"));
+//
+//    }
 
 
 }

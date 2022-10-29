@@ -1,8 +1,7 @@
 package tests;
 
-import core.BaseTest;
+import core.BaseRequest;
 
-import io.restassured.module.jsv.JsonSchemaValidator;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -14,7 +13,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class Login extends BaseTest {
+public class Login extends BaseRequest {
 
     @Test
     public void CT01_Login() {

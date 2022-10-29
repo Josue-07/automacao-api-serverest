@@ -14,9 +14,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <restassured.version>5.2.0</restassured.version>
-        <jubit.version>4.12</jubit.version>
+        <junit.version>4.12</junit.version>
         <gson.version>2.9.1</gson.version>
         <json.schema.validator.version>5.2.0</json.schema.validator.version>
+        <junit-jupiter-engine.version>5.4.0</junit-jupiter-engine.version>
+
     </properties>
 
     <dependencies>
@@ -30,7 +32,14 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter-engine.version}</version>
             <scope>test</scope>
         </dependency>
 

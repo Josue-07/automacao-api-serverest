@@ -1,6 +1,6 @@
 package utils;
 
-public class GeradorNomes {
+public class GeradorDeHash {
 
     public static String getGerarStringAleatoria(int stringTamanho) {
 

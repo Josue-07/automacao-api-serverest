@@ -5,7 +5,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-public class BearerToken extends BaseTest {
+public class BearerToken extends BaseRequest {
 
     public static String extrairToken() {
         Map<String, String> login = new HashMap<>();

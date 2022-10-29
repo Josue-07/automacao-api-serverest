@@ -1,30 +1,32 @@
 package execucao;
 
-import core.BaseTest;
+import core.BaseRequest;
 import core.BearerToken;
-import io.restassured.specification.RequestSpecification;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import tests.Carrinhos;
 import tests.Login;
 import tests.ProdutoServeRest;
 import tests.UsuariosServeRest;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.requestSpecification;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-       ProdutoServeRest.class
-})
-public class Runner extends BaseTest {
-      public static final String token = BearerToken.extrairToken();
-    @BeforeClass
-    public static void extrairTokenJWTApartirDoLogin(){
+        Login.class,
+        UsuariosServeRest.class,
+        ProdutoServeRest.class,
+        Carrinhos.class
 
-        //requestSpecification.header("Authorization", token);
+})
+public class Runner extends BaseRequest {
+    public static final String token = BearerToken.extrairToken();
+
+    @BeforeClass
+    public static void extrairTokenApartirDoLogin() {
+
+        requestSpecification.header("Authorization", token);
 
 
     }
