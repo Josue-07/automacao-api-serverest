@@ -10,10 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.runners.MethodSorters;
 import utils.GeradorDeHash;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -27,13 +25,12 @@ public class ProdutoServeRest extends BaseRequest {
     @Test
     @DisplayName("Lista de Produtos")
     public void CT01_validarListaDeProdutos() {
-        ArrayList<String> nome = given()
+        given()
 
                 .when()
                 .get(ENDPOINT_PRODUTOS)
                 .then()
-                .statusCode(HttpStatus.SC_OK)
-                .extract().path("produtos.nome.findAll{it.contains('Jaws')}");
+                .statusCode(HttpStatus.SC_OK);
                 //.extract().path("produtos.nome.findAll{it.contains('Jaws')}");
 
     }
@@ -65,7 +62,7 @@ public class ProdutoServeRest extends BaseRequest {
     public void CT03_validarCadastroDeProdutosJaExistente() {
 
         Map<String, Object> params = new HashMap<>();
-        params.put("nome", "Jaws");
+        params.put("nome", "Logitech MX Vertical");
         params.put("preco", 45);
         params.put("descricao", "celular");
         params.put("quantidade", 5);
@@ -76,8 +73,7 @@ public class ProdutoServeRest extends BaseRequest {
                 .post(ENDPOINT_PRODUTOS)
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body("message", is("Já existe produto com esse nome"))
-        ;
+                .body("message", is("Já existe produto com esse nome"));
 
 
     }
@@ -128,7 +124,7 @@ public class ProdutoServeRest extends BaseRequest {
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("message", is("Não é permitido excluir produto que faz parte de carrinho"))
-                .body("idCarrinhos",hasItems("qbMqntef4iTOwWfg","zs44COnXjB9ehOZj"));
+                .body("idCarrinhos",hasItems("qbMqntef4iTOwWfg"));
 
     }
 }

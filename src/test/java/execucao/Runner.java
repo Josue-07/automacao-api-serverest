@@ -26,7 +26,7 @@ public class Runner extends BaseRequest {
     @BeforeClass
     public static void extrairTokenApartirDoLogin() {
 
-        requestSpecification.header("Authorization", token);
+        requestSpecification.header("Authorization", token); // Comente essa linha para poder executar os testes individualmente com o BaseRequest
 
 
     }

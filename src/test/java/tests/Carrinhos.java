@@ -48,8 +48,29 @@ public class Carrinhos extends BaseRequest {
 
     }
     @Test
+    @DisplayName("Cadastrar Produto")
+    public void CT02_validarCadastroProduto(){
+        given()
+                .body("{\n" +
+                        "  \"produtos\": [\n" +
+                        "    {\n" +
+                        "      \"idProduto\": \"BeeJh5lz3k6kSIzA\",\n" +
+                        "      \"quantidade\": 1\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "      \"idProduto\": \"K6leHdftCeOJj8BJ\",\n" +
+                        "      \"quantidade\": 3\n" +
+                        "    }\n" +
+                        "  ]\n" +
+                        "}")
+                .when()
+                .post(ENDPOINT_CARRINHO)
+                .then()
+                .statusCode(HttpStatus.SC_CREATED);
+    }
+    @Test
     @DisplayName("Encontrar carrinho por ID")
-    public void CT02_validarBuscaPorCarrinhoPorId(){
+    public void CT03_validarBuscaPorCarrinhoPorId(){
         given()
                 .pathParams("_id","qbMqntef4iTOwWfg")
                 .when()
@@ -59,8 +80,8 @@ public class Carrinhos extends BaseRequest {
                     .body(matchesJsonSchemaInClasspath("BuscaIdCarrinhoSchema.json"));
     }
     @Test
-    @DisplayName("Encontrar carrinho por ID")
-    public void CT03_ExcluirCarrinho(){
+    @DisplayName("Concluir Compra")
+    public void CT04_ConcluirCompra(){
                 given()
                     .pathParams("entidade","concluir-compra")
                 .when()
@@ -68,6 +89,17 @@ public class Carrinhos extends BaseRequest {
                 .then()
                     .statusCode(HttpStatus.SC_OK)
                         .body("message",is("Registro excluído com sucesso"));
+    }
+    @Test
+    @DisplayName("Excluir Carrinho")
+    public void CT05_ExcluirCarrinho(){
+                given()
+                    .pathParams("entidade","cancelar-compra")
+                .when()
+                    .delete(ENDPOINT_CARRINHO+"/{entidade}")
+                .then()
+                    .statusCode(HttpStatus.SC_OK)
+                        .body("message",is("Registro excluído com sucesso. Estoque dos produtos reabastecido"));
     }
 
 

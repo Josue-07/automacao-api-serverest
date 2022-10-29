@@ -1,6 +1,7 @@
 package core;
 
 
+import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -30,14 +31,14 @@ public class BaseRequest implements Costantes {
 
         ResponseSpecBuilder responseSpecBuilder = new ResponseSpecBuilder();
         responseSpecBuilder.expectResponseTime(lessThanOrEqualTo(TIMEOUT));
-        responseSpecBuilder.log(LogDetail.ALL);
+        //responseSpecBuilder.log(LogDetail.ALL);
         respSpecification = responseSpecBuilder.build();
 
         requestSpecification = reqSpecification;
         responseSpecification = respSpecification;
-        //requestSpecification.header("Authorization", BearerToken.extrairToken());
+        //requestSpecification.header("Authorization", BearerToken.extrairToken()); // Comente essa linha para poder executar os testes regressivos no Runner
 
-        //RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
 
     }

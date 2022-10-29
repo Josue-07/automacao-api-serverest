@@ -30,7 +30,6 @@ public class UsuariosServeRest extends BaseRequest {
                 .when()
                 .get("/{entidade}")
                 .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_OK)
                 .body("$", hasKey("quantidade"))
                 .body("$", hasKey("usuarios"))

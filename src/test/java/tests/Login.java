@@ -27,7 +27,6 @@ public class Login extends BaseRequest {
                  .when()
                     .post("/{entidade}")
                 .then()
-                    .log().all()
                     .statusCode(200);
 
     }
@@ -43,7 +42,6 @@ public class Login extends BaseRequest {
                 .when()
                     .post("/{entidade}")
                 .then()
-                    .log().all()
                     .statusCode(401)
                     .body("message", is("Email e/ou senha inválidos"));
 
@@ -60,7 +58,6 @@ public class Login extends BaseRequest {
                 .when()
                 .post("/{entidade}")
                 .then()
-                .log().all()
                 .statusCode(401)
                 .body("message", is("Email e/ou senha inválidos"));
 
@@ -77,7 +74,6 @@ public class Login extends BaseRequest {
                 .when()
                 .post("/{entidade}")
                 .then()
-                .log().all()
                 .statusCode(401)
                 .body("message", is("Email e/ou senha inválidos"));
 
